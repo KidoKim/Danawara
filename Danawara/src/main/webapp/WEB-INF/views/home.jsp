@@ -83,7 +83,7 @@
         <div class="form-group">
           <label for="memory" class="col-sm-3 control-label">MEMORY : </label>
           <div class="col-sm-6">
-            <input type="text" id="memory" class="form-control" placeholder="DDR3 `6GB" disabled>
+            <input type="text" id="memory" class="form-control" placeholder="DDR4 16GB" disabled>
           </div>
         </div>
         <div class="form-group">
