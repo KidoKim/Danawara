@@ -16,8 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.testing.danawara.models.Cpu;
-import com.testing.danawara.requests.CheckRequest;
+import com.testing.danawara.models.Mainboard;
+import com.testing.danawara.models.Pc_case;
+import com.testing.danawara.models.Vga;
 import com.testing.danawara.responses.CheckResponse;
+import com.testing.danawara.requests.CheckRequest;
 import com.testing.danawara.service.DanawaraService;
 
 /**
@@ -46,10 +49,45 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/check", method = RequestMethod.POST, 
-			produces="application/json",
+	@RequestMapping(value = "/check", method = RequestMethod.POST, produces="application/json",
 			consumes="application/json")
 	public @ResponseBody CheckResponse check(@RequestBody CheckRequest requests) {
-			return new CheckResponse(false);
+		Cpu cpu = (Cpu)this.service.getCpuById((int)requests.getCpu());
+		System.out.println(requests.getMainboard());
+		Mainboard mainboard = (Mainboard) this.service.getMainboardById((int)requests.getMainboard());
+		Pc_case pcCase = (Pc_case) this.service.getPc_caseById((int)requests.getComputerCase());
+		Vga vga = (Vga) this.service.getVgaById((int)requests.getVga());
+		
+		
+		String msg1 = this.checkCPUWithMainBoard((Cpu)cpu, (Mainboard)mainboard);
+		String msg2 = this.checkMainBoardWithPcCase((int) mainboard.getSize(), (int) pcCase.getSize());
+		String msg3 = this.checkVGAWithPcCase((int)vga.getSize(), (int) pcCase.getSize());
+		
+		
+		return new CheckResponse(msg1, msg2, msg3);
+	}
+	
+	public String checkCPUWithMainBoard(Cpu cpu, Mainboard mainboard){
+		if(cpu.getSocket() == mainboard.getSocket()) {
+			return "CPU와 메인보드가 맞습니다.";
+		} else {
+			return "CPU와 메인보드가 맞지 않습니다.";
+		}
+	}
+	
+	public String checkMainBoardWithPcCase(int mainboard_size, int pc_case_size){
+		if(mainboard_size <= pc_case_size) {
+			return "메인보드와 케이스가 맞습니다.";
+		} else {
+			return "메인보드와 케이스가 맞지 않습니다.";
+		}
+	}
+	
+	public String checkVGAWithPcCase(int vga_size, int pc_case_size){
+		if(vga_size <= pc_case_size) {
+			return "vga와 케이스가 맞습니다.";
+		} else {
+			return "vga와 케이스가 맞지 않습니다.";
+		}
 	}
 }

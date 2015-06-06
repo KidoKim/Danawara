@@ -65,7 +65,7 @@
         <div class="form-group">
           <label for="case" class="col-sm-3 control-label">CASE : </label>
           <div class="col-sm-6">
-            <select class="form-control" id="case" name="computerCase">
+            <select class="form-control" id="computerCase" name="computerCase">
 	          <c:if test="${!empty listPc_cases}">
 	            <c:forEach items="${listPc_cases}" var="Pc_case">
 	              <option value=${Pc_case.id}>${Pc_case.name}</option>
@@ -99,24 +99,52 @@
         </div>
       </form>
     </div>
+    
+   <!-- modal -->
+   <div class="modal fade" id="resultModal" tabindex="-1" role="dialog" aria-labelledby="resultModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title" id="resultModalLabel">Result</h4>
+	      </div>
+	      <div class="modal-body">
+	        
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	        <button type="button" class="btn btn-primary">Send message</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<!-- modal end -->
+    
     <script>
       $(document).ready(function() {
 
     	  $(".check").click(function() {
     		 var formData = $(".danawaraForm").serialize();
+
+    		 var requestData = {
+    			'cpu': $("#cpu").val(),
+    			'mainboard': $("#mainboard").val(),
+    			'vga': $("#vga").val(),
+    			'computerCase': $("#computerCase").val(),
+    		 };
+
     		 $.ajax({
-    			 url:"http://localhost:8080/danawara/check",
-    			 type: "POST",
-    			 contentType: "application/json",
-    			 mimeType: "application/json",
-    			 data: JSON.stringify(formData),
-    			 success: function(data) {
-    				 console.log("good");
-    			 },
-    			 error: function(error) {
-    				 
-    			 }
-    		 });
+    		   type: "POST",
+    		   url: "http://localhost:8080/danawara/check",
+    		   contentType: "application/json; charset=UTF-8",
+    		   data: JSON.stringify(requestData),
+    		   success: function(data) {
+    			 var modal = $("#resultModal");
+    			 modal.show();
+    		     console.log(data);
+    		   }
+    		});
+
     	  });
       });
     </script>

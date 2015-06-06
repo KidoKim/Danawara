@@ -6,11 +6,6 @@ public class CheckRequest {
 	private int vga;
 	private int computerCase;
 	
-	@Override
-	public String toString() {
-		return String.format("%s, %s, %s, %s", cpu, mainboard, vga, computerCase);
-	}
-	
 	public CheckRequest () {
 		
 	}
@@ -35,7 +30,7 @@ public class CheckRequest {
 		return this.cpu;
 	}
 	
-	public int getMainBoard() {
+	public int getMainboard() {
 		return this.mainboard;
 	}
 	
