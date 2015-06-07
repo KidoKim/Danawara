@@ -57,11 +57,9 @@ public class HomeController {
 		Pc_case pcCase = (Pc_case) this.service.getPc_caseById((int)requests.getComputerCase());
 		Vga vga = (Vga) this.service.getVgaById((int)requests.getVga());
 		
-		
 		String msg1 = this.checkCPUWithMainBoard((Cpu)cpu, (Mainboard)mainboard);
 		String msg2 = this.checkMainBoardWithPcCase((int) mainboard.getSize(), (int) pcCase.getSize());
 		String msg3 = this.checkVGAWithPcCase((int)vga.getSize(), (int) pcCase.getSize());
-		
 		
 		return new CheckResponse(msg1, msg2, msg3);
 	}
