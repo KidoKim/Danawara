@@ -41,7 +41,6 @@ public class HomeController {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		
         model.addAttribute("listCpus", this.service.listCpu());
         model.addAttribute("listMainboards", this.service.listMainboard());
         model.addAttribute("listPc_cases", this.service.listPc_case());
@@ -49,8 +48,8 @@ public class HomeController {
 		return "home";
 	}
 	
-	@RequestMapping(value = "/check", method = RequestMethod.POST, produces="application/json",
-			consumes="application/json")
+	@RequestMapping(value = "/check", method = RequestMethod.POST, produces="application/json;charset=UTF-8",
+			consumes="application/json;charset=UTF-8")
 	public @ResponseBody CheckResponse check(@RequestBody CheckRequest requests) {
 		Cpu cpu = (Cpu)this.service.getCpuById((int)requests.getCpu());
 		Mainboard mainboard = (Mainboard) this.service.getMainboardById((int)requests.getMainboard());
