@@ -109,7 +109,7 @@
 	        <h4 class="modal-title" id="resultModalLabel">Result</h4>
 	      </div>
 	      <div class="modal-body">
-	        
+	      	<input type="text" class="form-control" id="resultMessage">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -122,7 +122,7 @@
     
     <script>
       $(document).ready(function() {
-
+		  var ajaxData;
     	  $(".check").click(function() {
     		 var formData = $(".danawaraForm").serialize();
 
@@ -136,15 +136,20 @@
     		 $.ajax({
     		   type: "POST",
     		   url: "http://localhost:8080/danawara/check",
-    		   contentType: "application/json; charset=UTF-8",
+    		   contentType: "application/json",
     		   data: JSON.stringify(requestData),
     		   success: function(data) {
-    			 var modal = $("#resultModal");
-    			 modal.show();
-    		     console.log(data);
+    			   ajaxData = data;
+    			   $("#resultModal").modal('show');
+    		   },
+    		   error: function(error) {
+    			   console.log(error);
     		   }
     		});
-
+    	  });
+    	  
+    	  $("#resultModal").on('show.bs.modal', function(e) {
+    		  $(this).find('.modal-body input').val(ajaxData.msg1 +" "+ajaxData.msg2 +" " + ajaxData.msg3);
     	  });
       });
     </script>

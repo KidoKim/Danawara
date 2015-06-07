@@ -53,7 +53,6 @@ public class HomeController {
 			consumes="application/json")
 	public @ResponseBody CheckResponse check(@RequestBody CheckRequest requests) {
 		Cpu cpu = (Cpu)this.service.getCpuById((int)requests.getCpu());
-		System.out.println(requests.getMainboard());
 		Mainboard mainboard = (Mainboard) this.service.getMainboardById((int)requests.getMainboard());
 		Pc_case pcCase = (Pc_case) this.service.getPc_caseById((int)requests.getComputerCase());
 		Vga vga = (Vga) this.service.getVgaById((int)requests.getVga());
