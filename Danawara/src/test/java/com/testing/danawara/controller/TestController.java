@@ -102,7 +102,7 @@ public class TestController {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.msg1").value("CPU와 메인보드가 맞습니다."))
 				.andExpect(jsonPath("$.msg2").value("메인보드와 케이스가 맞습니다."))
-				.andExpect(jsonPath("$.msg3").value("vga와 케이스가 맞지 않습니다."));
+				.andExpect(jsonPath("$.msg3").value("더 작은 vga를 선택하세요."));
 	}
 	
 	// 4-4 케이스의 규격이 메인보드보다 작은 경우
@@ -118,7 +118,7 @@ public class TestController {
 				.content(TestUtil.convertObjectToJsonBytes(request)))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.msg1").value("CPU와 메인보드가 맞습니다."))
-				.andExpect(jsonPath("$.msg2").value("메인보드와 케이스가 맞지 않습니다."))
+				.andExpect(jsonPath("$.msg2").value("더 작은 메인보드를 선택하거나, 더 큰 케이스를 선택하세요."))
 				.andExpect(jsonPath("$.msg3").value("vga와 케이스가 맞습니다."));
 	}
 	
@@ -134,7 +134,7 @@ public class TestController {
 		mockMvc.perform(post("/check").contentType(MediaType.APPLICATION_JSON)
 				.content(TestUtil.convertObjectToJsonBytes(request)))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$.msg1").value("CPU와 메인보드가 맞지 않습니다."))
+				.andExpect(jsonPath("$.msg1").value("AMD CPU를 장착해주세요."))
 				.andExpect(jsonPath("$.msg2").value("메인보드와 케이스가 맞습니다."))
 				.andExpect(jsonPath("$.msg3").value("vga와 케이스가 맞습니다."));
 	}
