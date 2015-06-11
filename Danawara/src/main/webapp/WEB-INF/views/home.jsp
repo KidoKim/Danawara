@@ -109,7 +109,7 @@
 	        <h4 class="modal-title" id="resultModalLabel">Result</h4>
 	      </div>
 	      <div class="modal-body">
-	      	<input type="text" class="form-control" id="resultMessage">
+	        <ul class="result-message"></ul>
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -148,7 +148,10 @@
     	  });
     	  
     	  $("#resultModal").on('show.bs.modal', function(e) {
-    		  $(this).find('.modal-body input').val(ajaxData.msg1 +" "+ajaxData.msg2 +" " + ajaxData.msg3);
+    		  $('.result-message').empty();
+    		  for(var i in ajaxData) {
+    			  $('.result-message').append("<li>" + ajaxData[i] + "</li>");
+    		  }
     	  });
       });
     </script>
