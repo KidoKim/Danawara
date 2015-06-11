@@ -67,7 +67,13 @@ public class HomeController {
 		if(cpu.getSocket() == mainboard.getSocket()) {
 			return "CPU와 메인보드가 맞습니다.";
 		} else {
-			return "CPU와 메인보드가 맞지 않습니다.";
+			if (cpu.getSocket() == 1) {
+				return "AMD CPU를 장착해주세요.";
+			} else if (cpu.getSocket() == 2) {
+				return "INTEL CPU를 장착해주세요.";
+			} else {
+				return "잘못된 CPU 소켓입니다.";
+			}
 		}
 	}
 	
@@ -75,7 +81,7 @@ public class HomeController {
 		if(mainboard_size <= pc_case_size) {
 			return "메인보드와 케이스가 맞습니다.";
 		} else {
-			return "메인보드와 케이스가 맞지 않습니다.";
+			return "더 작은 메인보드를 선택하거나, 더 큰 케이스를 선택하세요.";
 		}
 	}
 	
@@ -83,7 +89,7 @@ public class HomeController {
 		if(vga_size <= pc_case_size) {
 			return "vga와 케이스가 맞습니다.";
 		} else {
-			return "vga와 케이스가 맞지 않습니다.";
+			return "더 작은 vga를 선택하세요.";
 		}
 	}
 }
